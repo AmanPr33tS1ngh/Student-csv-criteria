@@ -6,6 +6,11 @@ import com.csvdatanatwest.natwestcsvdata.model.Student;
 import com.csvdatanatwest.natwestcsvdata.service.CsvProcessingService;
 import com.csvdatanatwest.natwestcsvdata.service.StudentService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 // import io.swagger.v3.oas.annotations.Operation;
@@ -16,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.MediaType;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -34,8 +40,14 @@ public class StudentController {
     private final StudentService studentService;
     private final CsvProcessingService csvProcessingService;
 
-    @PostMapping("/upload_csv")
-    // @Operation(summary = "Upload Student CSV", description = "Returns updated csv. Note: Before this method please create/update criteria using criteria endpoint.")
+    @PostMapping(value = "/upload_csv", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @Operation(summary = "Upload Student CSV", description = "Returns updated csv")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Successfully uploaded and processed CSV",
+                content = @Content(schema = @Schema(type = "string", format = "binary"))),
+        @ApiResponse(responseCode = "400", description = "File is empty or invalid", content = @Content),
+        @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
+    })
     public ResponseEntity<byte[]> uploadCsv(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.status(400).body(null);
@@ -81,9 +93,16 @@ public class StudentController {
     }
 
     @GetMapping("/{rollNumber}")
-    // @Operation(summary = "Upload Student CSV", description = "Returns updated csv. Note: Before this method please create/update criteria using criteria endpoint.")
+    @Operation(summary = "Upload Student CSV", description = "Returns Student with the same roll no.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Got Student"),
+        @ApiResponse(responseCode = "404", description = "Student not found", content = @Content),
+    })
     public ResponseEntity<Student> getStudent(@PathVariable Long rollNumber) {
         Optional<Student> student = studentService.getStudent(rollNumber);
+        if (student == null){
+            return ResponseEntity.status(404).body(null);
+        }
         return student.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(404).body(null));
     }
 }

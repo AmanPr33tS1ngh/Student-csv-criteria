@@ -3,7 +3,6 @@ package com.csvdatanatwest.natwestcsvdata;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.csvdatanatwest.natwestcsvdata.model.Criteria;
 import com.csvdatanatwest.natwestcsvdata.model.Student;
 import com.csvdatanatwest.natwestcsvdata.service.StudentService;
 
@@ -44,11 +43,5 @@ class NatwestcsvdataApplicationTests {
     void testGetStudent() {
         Optional<Student> student = studentService.getStudent(100101L);
         assertEquals("Vivek Sharma", student.get().getName());
-    }
-
-    @Test
-    void testUpdateCriteria() {
-        // studentService.createOrUpdateCriteria(new Criteria(45, 55, 44, 55));
-        // assertEquals(90, studentService.getCriteria().getScience());
     }
 }
