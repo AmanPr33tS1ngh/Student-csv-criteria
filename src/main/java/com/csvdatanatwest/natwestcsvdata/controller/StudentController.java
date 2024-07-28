@@ -1,13 +1,15 @@
-package com.csvdatanatwest.natwestcsvdata.controllers;
+package com.csvdatanatwest.natwestcsvdata.controller;
 
 import lombok.RequiredArgsConstructor;
 
-import com.csvdatanatwest.natwestcsvdata.models.Student;
-import com.csvdatanatwest.natwestcsvdata.services.CsvProcessingService;
-import com.csvdatanatwest.natwestcsvdata.services.StudentService;
+import com.csvdatanatwest.natwestcsvdata.model.Student;
+import com.csvdatanatwest.natwestcsvdata.service.CsvProcessingService;
+import com.csvdatanatwest.natwestcsvdata.service.StudentService;
 
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+
+// import io.swagger.v3.oas.annotations.Operation;
+// import io.swagger.v3.oas.annotations.tags.Tag;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -33,7 +35,7 @@ public class StudentController {
     private final CsvProcessingService csvProcessingService;
 
     @PostMapping("/upload_csv")
-    @Operation(summary = "Upload Student CSV", description = "Returns updated csv. Note: Before this method please create/update criteria using criteria endpoint.")
+    // @Operation(summary = "Upload Student CSV", description = "Returns updated csv. Note: Before this method please create/update criteria using criteria endpoint.")
     public ResponseEntity<byte[]> uploadCsv(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.status(400).body(null);
@@ -79,7 +81,7 @@ public class StudentController {
     }
 
     @GetMapping("/{rollNumber}")
-    @Operation(summary = "Upload Student CSV", description = "Returns updated csv. Note: Before this method please create/update criteria using criteria endpoint.")
+    // @Operation(summary = "Upload Student CSV", description = "Returns updated csv. Note: Before this method please create/update criteria using criteria endpoint.")
     public ResponseEntity<Student> getStudent(@PathVariable Long rollNumber) {
         Optional<Student> student = studentService.getStudent(rollNumber);
         return student.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(404).body(null));

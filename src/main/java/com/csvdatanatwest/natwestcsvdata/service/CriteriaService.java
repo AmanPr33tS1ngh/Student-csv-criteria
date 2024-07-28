@@ -1,10 +1,10 @@
-package com.csvdatanatwest.natwestcsvdata.services;
+package com.csvdatanatwest.natwestcsvdata.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.csvdatanatwest.natwestcsvdata.models.Criteria;
-import com.csvdatanatwest.natwestcsvdata.repositories.CriteriaRepository;
+import com.csvdatanatwest.natwestcsvdata.model.Criteria;
+import com.csvdatanatwest.natwestcsvdata.repository.CriteriaRepository;
 
 
 @Service

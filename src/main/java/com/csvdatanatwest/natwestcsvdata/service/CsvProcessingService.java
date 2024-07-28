@@ -1,11 +1,12 @@
-package com.csvdatanatwest.natwestcsvdata.services;
+package com.csvdatanatwest.natwestcsvdata.service;
 
-import com.csvdatanatwest.natwestcsvdata.models.Student;
-import com.csvdatanatwest.natwestcsvdata.models.Criteria;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.csvdatanatwest.natwestcsvdata.model.Criteria;
+import com.csvdatanatwest.natwestcsvdata.model.Student;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;

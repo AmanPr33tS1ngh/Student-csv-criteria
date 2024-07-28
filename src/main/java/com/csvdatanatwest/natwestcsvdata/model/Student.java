@@ -1,4 +1,4 @@
-package com.csvdatanatwest.natwestcsvdata.models;
+package com.csvdatanatwest.natwestcsvdata.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

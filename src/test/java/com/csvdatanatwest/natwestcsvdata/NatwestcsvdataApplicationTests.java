@@ -3,10 +3,10 @@ package com.csvdatanatwest.natwestcsvdata;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.csvdatanatwest.natwestcsvdata.model.Criteria;
+import com.csvdatanatwest.natwestcsvdata.model.Student;
+import com.csvdatanatwest.natwestcsvdata.service.StudentService;
 
-import com.csvdatanatwest.natwestcsvdata.models.Student;
-import com.csvdatanatwest.natwestcsvdata.models.Criteria;
-import com.csvdatanatwest.natwestcsvdata.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;

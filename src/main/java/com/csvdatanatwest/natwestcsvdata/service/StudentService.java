@@ -1,8 +1,9 @@
-package com.csvdatanatwest.natwestcsvdata.services;
+package com.csvdatanatwest.natwestcsvdata.service;
 
-import com.csvdatanatwest.natwestcsvdata.models.Criteria;
-import com.csvdatanatwest.natwestcsvdata.models.Student;
-import com.csvdatanatwest.natwestcsvdata.repositories.StudentRepository;
+import com.csvdatanatwest.natwestcsvdata.model.Criteria;
+import com.csvdatanatwest.natwestcsvdata.model.Student;
+import com.csvdatanatwest.natwestcsvdata.repository.StudentRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

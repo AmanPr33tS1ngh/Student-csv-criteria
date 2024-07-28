@@ -1,10 +1,10 @@
-package com.csvdatanatwest.natwestcsvdata.controllers;
+package com.csvdatanatwest.natwestcsvdata.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.csvdatanatwest.natwestcsvdata.models.Criteria;
-import com.csvdatanatwest.natwestcsvdata.services.CriteriaService;
+import com.csvdatanatwest.natwestcsvdata.model.Criteria;
+import com.csvdatanatwest.natwestcsvdata.service.CriteriaService;
 
 @RestController
 @RequestMapping("/criteria")

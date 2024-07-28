@@ -1,8 +1,9 @@
-package com.csvdatanatwest.natwestcsvdata.repositories;
+package com.csvdatanatwest.natwestcsvdata.repository;
 
-import com.csvdatanatwest.natwestcsvdata.models.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.csvdatanatwest.natwestcsvdata.model.Student;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
