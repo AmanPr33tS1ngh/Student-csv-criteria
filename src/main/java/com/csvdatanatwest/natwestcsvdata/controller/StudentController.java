@@ -13,6 +13,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 // import io.swagger.v3.oas.annotations.Operation;
 // import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -40,6 +43,8 @@ public class StudentController {
     private final StudentService studentService;
     private final CsvProcessingService csvProcessingService;
 
+    private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
+
     @PostMapping(value = "/upload_csv", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Upload Student CSV", description = "Returns updated csv")
     @ApiResponses(value = {
@@ -50,9 +55,11 @@ public class StudentController {
     })
     public ResponseEntity<byte[]> uploadCsv(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
+            logger.error("File is empty or wrong file type");
             return ResponseEntity.status(400).body(null);
         }
 
+        logger.info("Reading CSV and creating Student objects");
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             List<Student> students = reader.lines()
                     .skip(1)
@@ -69,8 +76,11 @@ public class StudentController {
                         );
                     })
                     .collect(Collectors.toList());
+
+            logger.info("Processing Student objects");
             List<Student> updatedStudents = csvProcessingService.processCsv(students);
 
+            logger.info("Writing Updated Students");
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             try (PrintWriter writer = new PrintWriter(new OutputStreamWriter(out))) {
                 writer.println("roll_number,student_name,science,maths,english,computer,eligibility");
@@ -101,6 +111,7 @@ public class StudentController {
     public ResponseEntity<Student> getStudent(@PathVariable Long rollNumber) {
         Optional<Student> student = studentService.getStudent(rollNumber);
         if (student == null){
+            logger.error("Student not found");
             return ResponseEntity.status(404).body(null);
         }
         return student.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(404).body(null));

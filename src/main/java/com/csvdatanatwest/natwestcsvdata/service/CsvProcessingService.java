@@ -51,10 +51,7 @@ public class CsvProcessingService {
             try {
                 List<Student> processedChunk = future.get();
                 processedStudents.addAll(processedChunk);
-            } catch (Exception e) {
-                // Handle the exception appropriately
-                e.printStackTrace();
-            }
+            } catch (Exception e) {}
         }
 
         // Shut down the executor service
